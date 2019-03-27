@@ -1,8 +1,9 @@
 package com.example.mydagger2.mvp.presenter;
 
-import com.example.mydagger2.mvp.entity.Categories;
+import com.example.mydagger2.data.api.ApiService;
+import com.example.mydagger2.mvp.contract.CategoryContract;
 import com.example.mydagger2.mvp.entity.Category;
-import com.example.mydagger2.mvp.listener.Callback;
+import com.example.mydagger2.mvp.listener.CategoryCallback;
 import com.example.mydagger2.mvp.view.CategoryView;
 
 import java.util.List;
@@ -11,20 +12,22 @@ import java.util.List;
  * Created by beijixiong on 2019/3/26.
  */
 
-public class CategoryPresenter implements BasePresenter, Callback {
+public class CategoryPresenter implements BasePresenter, CategoryCallback {
 
     private CategoryView view;
-    private Categories categories;
+    private CategoryContract categories;
+    private ApiService apiService;
 
-    public CategoryPresenter(CategoryView view, Categories categories) {
+    public CategoryPresenter(CategoryView view, CategoryContract categories, ApiService apiService) {
         this.view = view;
         this.categories = categories;
+        this.apiService = apiService;
     }
 
     @Override
     public void onResume() {
         view.showProgress();
-        categories.getCategories(this);
+        categories.getCategories(apiService, this);
     }
 
     @Override

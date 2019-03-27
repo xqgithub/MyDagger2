@@ -2,10 +2,11 @@ package com.example.mydagger2.mvp.entity;
 
 /**
  * Created by beijixiong on 2019/3/26.
+ * 实体类
  */
 
 public class Category {
-    
+
     private String mName;
     private int mIcon;
     private int mBackgroundColor;

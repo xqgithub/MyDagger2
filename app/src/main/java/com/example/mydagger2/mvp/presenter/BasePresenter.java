@@ -7,7 +7,7 @@ import com.example.mydagger2.mvp.entity.Category;
  */
 
 public interface BasePresenter {
-    
+
     void onResume();
 
     void onItemSelected(Category category, int position);

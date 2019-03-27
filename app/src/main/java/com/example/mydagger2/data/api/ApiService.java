@@ -12,4 +12,11 @@ import retrofit2.http.Url;
 public interface ApiService {
     @GET
     Call<ResponseBody> downloadFileWithDynamicUrlSync(@Url String fileUrl);
+
+
+    /**
+     * 判断客户端是否是在国内
+     */
+    @GET
+    Call<ResponseBody> location(@Url String fileUrl);
 }

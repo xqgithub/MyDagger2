@@ -1,20 +1,32 @@
-package com.example.mydagger2.mvp.entity;
+package com.example.mydagger2.mvp.contract;
 
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.mydagger2.R;
-import com.example.mydagger2.mvp.listener.Callback;
+import com.example.mydagger2.constants.ConfigConstants;
+import com.example.mydagger2.data.api.ApiService;
+import com.example.mydagger2.mvp.entity.Category;
+import com.example.mydagger2.mvp.listener.CategoryCallback;
+import com.example.mydagger2.utils.PublicPracticalMethod;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Response;
+
 /**
- * Created by beijixiong on 2019/3/26.
+ * Created by beijixiong on 2019/3/26.、
+ * 实体类 数据实现
  */
 
-public class Categories {
 
-    public void getCategories(final Callback callback) {
+public class CategoryContract {
+
+    public void getCategories(ApiService apiService, final CategoryCallback callback) {
+        //模拟网络数据
         final int DELEAY_MILLIS = 2000;
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -22,6 +34,9 @@ public class Categories {
                 callback.onLoadCategories(createArrayList());
             }
         }, DELEAY_MILLIS);
+
+        //请求网络数据
+        getApiData(apiService);
     }
 
     private List<Category> createArrayList() {
@@ -47,4 +62,25 @@ public class Categories {
     }
 
 
+    public void getApiData(ApiService apiService) {
+        Call<ResponseBody> call = apiService.location(ConfigConstants.BASE_URL + "api/client/v1/commons/location");
+        call.enqueue(new retrofit2.Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.body() != null) {
+                    try {
+                        String jsonString = PublicPracticalMethod.getInstance().byte2String(response.body().bytes());
+                        Log.i("CategoryPresenter", " =-= " + jsonString);
+                    } catch (Exception e) {
+                        Log.e("CategoryPresenter", e.getMessage());
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.i("CategoryPresenter", " =-= " + t.getMessage());
+            }
+        });
+    }
 }

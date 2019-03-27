@@ -10,5 +10,5 @@ public interface ConfigConstants {
     int default_connect_time_out = 10;
     int default_read_time_out = 10;
 
-    String BASE_URL = "http://v.juhe.cn/";
+    String BASE_URL = "https://api.llzggzjy.com/";
 }

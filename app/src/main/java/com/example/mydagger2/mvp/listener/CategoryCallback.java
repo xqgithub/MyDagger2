@@ -6,8 +6,9 @@ import java.util.List;
 
 /**
  * Created by beijixiong on 2019/3/26.
+ * 接口回调
  */
 
-public interface Callback {
+public interface CategoryCallback {
     void onLoadCategories(List<Category> categories);
 }

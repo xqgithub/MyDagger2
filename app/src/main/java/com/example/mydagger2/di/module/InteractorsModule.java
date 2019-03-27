@@ -1,6 +1,6 @@
 package com.example.mydagger2.di.module;
 
-import com.example.mydagger2.mvp.entity.Categories;
+import com.example.mydagger2.mvp.contract.CategoryContract;
 
 import dagger.Module;
 import dagger.Provides;
@@ -11,7 +11,7 @@ import dagger.Provides;
 @Module
 public class InteractorsModule {
     @Provides
-    public Categories provideFindItemsInteractor() {
-        return new Categories();
+    public CategoryContract provideFindItemsInteractor() {
+        return new CategoryContract();
     }
 }
